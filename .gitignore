@@ -1,0 +1,58 @@
+# =========================
+# Python
+# =========================
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.python-version
+pip-wheel-metadata/
+*.egg-info/
+dist/
+build/
+
+# Virtualenvs
+venv/
+.venv/
+ENV/
+env/
+
+# =========================
+# Node / JS
+# =========================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# =========================
+# WhatsApp Web JS (sesión)
+# =========================
+.wwebjs_auth/
+.wwebjs_cache/
+
+# =========================
+# Secrets / env
+# =========================
+.env
+.env.*
+!.env.example
+
+# =========================
+# Artefactos / archivos de scraping locales
+# =========================
+_equus.html
+_sample.html
+
+# =========================
+# OS / editor
+# =========================
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
