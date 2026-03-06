@@ -1,24 +1,29 @@
-# Bot WPP - Pipeline ETL de E-commerce
+# 🛒 AI E-Commerce Shopping Assistant & ETL Pipeline
 
-Este proyecto implementa un pipeline ETL en Python organizado como un sistema multi-agente para extraer productos de e-commerce, limpiar los datos y estructurarlos para su posterior inserción en una base de datos (por ejemplo PostgreSQL o Supabase).
+Un motor de búsqueda conversacional de extremo a extremo. Este proyecto extrae, limpia y almacena datos de e-commerce en tiempo real, permitiendo a los usuarios consultar el catálogo mediante lenguaje natural a través de un bot de WhatsApp impulsado por LLMs.
 
-## Estructura de agentes
+## 🏗️ Arquitectura del Proyecto
 
-- `agents/extractor.py`: agente extractor. Solo realiza peticiones HTTP y devuelve HTML o JSON crudo.
-- `agents/quality.py`: agente de data quality. Limpia y normaliza datos a partir de la data cruda.
-- `agents/db_manager.py`: agente estructurador. Prepara el payload final (JSON) listo para ser insertado en la base de datos.
+El sistema está dividido en dos grandes bloques: un **Pipeline ETL** basado en agentes (Python) y una **Interfaz Conversacional** (Node.js).
 
-El archivo `main.py` orquesta el flujo llamando a los agentes en orden.
+### 1. Pipeline ETL (Python)
+Diseñado con una arquitectura multi-agente para garantizar la escalabilidad y la calidad del dato:
+* **ExtractorAgent:** Realiza peticiones HTTP y bypassea estructuras complejas (ej. extracción de JSON incrustado en `__STATE__` para sitios VTEX).
+* **QualityAgent:** Limpia strings, normaliza precios a enteros y descarta registros nulos o sin stock aplicando reglas de negocio estrictas.
+* **DBManagerAgent:** Gestiona la conexión a PostgreSQL (Supabase) realizando operaciones de `upsert` idempotentes para evitar duplicados.
 
-## Requisitos
+### 2. Interfaz Conversacional (Node.js)
+* **WhatsApp Bot:** Implementado con `whatsapp-web.js` para interacción directa con el usuario.
+* **NLP Engine:** Integración con Google Gemini (2.5 Flash) para traducir el lenguaje natural del usuario ("Busco algo por menos de 80 lucas") en parámetros de búsqueda estructurados (`precio_max`, `tienda`).
+* **Querying:** Consultas dinámicas a Supabase filtrando el catálogo en milisegundos.
 
-```bash
-pip install -r requirements.txt
-```
+## 💻 Tecnologías Utilizadas
+* **Data Engineering:** Python, BeautifulSoup, Requests, Pandas.
+* **Base de Datos:** PostgreSQL (Supabase).
+* **Backend:** Node.js.
+* **IA:** Google Gemini API.
 
-## Ejecución
-
-```bash
-python main.py
-```
-
+## 🚀 Próximos Pasos (Roadmap)
+- [ ] Implementar extracción universal basada en `sitemap.xml` y `JSON-LD (Schema.org)`.
+- [ ] Orquestación en la nube (GitHub Actions) para actualización batch diaria.
+- [ ] Agente LLM de clasificación para normalizar colores y categorías automáticamente.
