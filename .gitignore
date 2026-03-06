@@ -47,6 +47,7 @@ pnpm-debug.log*
 # =========================
 _equus.html
 _sample.html
+inspect_equus_state.py
 
 # =========================
 # OS / editor
